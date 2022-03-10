@@ -13,7 +13,8 @@ Inspired from [https://github.com/repo-sync/pull-request](https://github.com/rep
     - uses: GuillaumeFalourd/pull-request-action@v1
       with:
         destination_branch: "main"
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ### Maximum
@@ -23,8 +24,8 @@ Inspired from [https://github.com/repo-sync/pull-request](https://github.com/rep
       uses: GuillaumeFalourd/pull-request-action@v1
       uses: repo-sync/pull-request@v2
       with:
-        source_branch: ""                                 # If blank, default: triggered branch
-        destination_branch: "main"                        # If blank, default: main
+        source_branch: "main"                             # If blank, default: triggered branch
+        destination_branch: "feature"                     # If blank, default: main
         pr_title: "Pulling ${{ github.ref }} into main"   # Title of pull request
         pr_body: "An automated PR"                        # Full markdown support, requires pr_title to be set
         pr_reviewer: "john, britney"                      # Comma-separated list (no spaces)
@@ -33,7 +34,8 @@ Inspired from [https://github.com/repo-sync/pull-request](https://github.com/rep
         pr_milestone: "Milestone 1"                       # Milestone name
         pr_draft: true                                    # Creates pull request as draft
         pr_allow_empty: true                              # Creates pull request even if there are no changes
-        github_token: ${{ secrets.GITHUB_TOKEN }}         # If blank, default: GITHUB_TOKEN (can use PAT)
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}         # Can use PAT as secret
 ```
 
 ## 🤝 Contributing

@@ -3,8 +3,8 @@ name: Action test on Ubuntu
 on:
   schedule:
     - cron: "0 2 * * MON-FRI" # Runs at 02:00 UTC
-  # push:
-  #   branches: [main]
+  push:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
