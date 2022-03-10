@@ -60,26 +60,19 @@ runs:
         set -o pipefail
 
         if [[ ! -z "${{ inputs.source_branch }}" ]]; then
-          echo one
           SOURCE_BRANCH="${{ inputs.source_branch }}"
         elif [[ ! -z "$GITHUB_REF" ]]; then
-          echo two
           SOURCE_BRANCH=${GITHUB_REF/refs\/heads\//}  # Remove branch prefix
         else
-          echo three
           echo "Set the ${{ inputs.source_branch }} environment variable or trigger from a branch."
           exit 1
         fi
-        echo SOURCE_BRANCH $SOURCE_BRANCH
 
         if [[ ! -z "${{ inputs.destination_branch }}" ]]; then
-          echo four
           DESTINATION_BRANCH="${{ inputs.destination_branch }}"
         else
-          echo five
           DESTINATION_BRANCH="main"
         fi
-        echo DESTINATION_BRANCH $DESTINATION_BRANCH
 
         # Github actions no longer auto set the username and GITHUB_TOKEN
         git remote set-url origin "https://$GITHUB_ACTOR:${{ github.token }}@${GITHUB_SERVER_URL#https://}/$GITHUB_REPOSITORY"
@@ -118,32 +111,33 @@ runs:
         fi
 
         if [[ ! -z "${{ inputs.pr_reviewer }}" ]]; then
-          PR_ARG="$PR_ARG -r \"${{ inputs.pr_reviewer }}\""
+          PR_ARG="$PR_ARG --reviewer \"${{ inputs.pr_reviewer }}\""
         fi
 
         if [[ ! -z "${{ inputs.pr_assignee }}" ]]; then
-          PR_ARG="$PR_ARG -a \"${{ inputs.pr_assignee }}\""
+          PR_ARG="$PR_ARG --assignee \"${{ inputs.pr_assignee }}\""
         fi
 
         if [[ ! -z "${{ inputs.pr_label }}" ]]; then
-          PR_ARG="$PR_ARG -l \"${{ inputs.pr_label }}\""
+          PR_ARG="$PR_ARG --label \"${{ inputs.pr_label }}\""
         fi
 
         if [[ ! -z "${{ inputs.pr_milestone }}" ]]; then
-          PR_ARG="$PR_ARG -M \"${{ inputs.pr_milestone }}\""
+          PR_ARG="$PR_ARG --milestone \"${{ inputs.pr_milestone }}\""
         fi
 
-        if [[ "${{ inputs.pr_draft }}" ==  "true" ]]; then
-          PR_ARG="$PR_ARG -d"
+        if [[ "${{ inputs.pr_draft }}" == "true" ]]; then
+          PR_ARG="$PR_ARG --draft"
         fi
 
-        COMMAND="hub pull-request \
-          -b $DESTINATION_BRANCH \
-          -h $SOURCE_BRANCH \
-          --no-edit \
+        COMMAND="gh pr create \
+          --base $DESTINATION_BRANCH \
+          --head $SOURCE_BRANCH \
+          --no-maintainer-edit \
           $PR_ARG \
           || true"
 
+        echo "Command that will be executed:"
         echo "$COMMAND"
 
         PR_URL=$(sh -c "$COMMAND")
