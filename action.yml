@@ -1,6 +1,6 @@
 name: Pull Request Action
 
-description: Github Actions to create pull request ⤵️ 
+description: Github Actions to create pull request (all os supported) ⤵️ 
 
 inputs:
   source_branch:
@@ -47,7 +47,6 @@ runs:
   using: "composite"
   steps:
     - name: Create Pull Request ⤵️ 
-      shell: bash
       run: |
         set -e
         set -o pipefail
@@ -91,7 +90,7 @@ runs:
         # Workaround for `hub` auth error https://github.com/github/hub/issues/2149#issuecomment-513214342
         export GITHUB_USER="$GITHUB_ACTOR"
 
-        COMMAND="gh pr create --base $DESTINATION_BRANCH --head $SOURCE_BRANCH --no-maintainer-edit "
+        COMMAND="gh pr create --base $DESTINATION_BRANCH --head $SOURCE_BRANCH --no-maintainer-edit"
 
         if [[ ! -z "${{ inputs.pr_title }}" ]]; then
           COMMAND="$COMMAND --title \"${{ inputs.pr_title }}\""
@@ -100,7 +99,7 @@ runs:
         fi
 
         if [[ ! -z "${{ inputs.pr_body }}" ]]; then
-          COMMAND="$COMMAND -m \"${{ inputs.pr_body }}\""
+          COMMAND="$COMMAND --body \"${{ inputs.pr_body }}\""
         fi
 
         if [[ ! -z "${{ inputs.pr_reviewer }}" ]]; then
@@ -141,7 +140,7 @@ runs:
         else
           echo "::set-output name=has_changed_files::true"
         fi
-
+      shell: bash
 
 branding:
   icon: 'git-pull-request'
