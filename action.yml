@@ -54,6 +54,7 @@ runs:
   using: "composite"
   steps:
     - name: Create Pull Request ⤵️ 
+      shell: bash
       run: |
         set -e
         set -o pipefail
@@ -147,7 +148,6 @@ runs:
         else
           echo "::set-output name=has_changed_files::true"
         fi
-    shell: bash
 
 
 branding:
