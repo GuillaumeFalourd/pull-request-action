@@ -68,7 +68,7 @@ runs:
           exit 1
         fi
 
-        DESTINATION_BRANCH="${${{ inputs.destination_branch }}:-"master"}"
+        DESTINATION_BRANCH="${${{ inputs.destination_branch }}:-"main"}"
 
         # Github actions no longer auto set the username and GITHUB_TOKEN
         git remote set-url origin "https://$GITHUB_ACTOR:${{ github.token }}@${GITHUB_SERVER_URL#https://}/$GITHUB_REPOSITORY"
