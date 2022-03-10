@@ -67,8 +67,10 @@ runs:
           echo "Set the ${{ inputs.source_branch }} environment variable or trigger from a branch."
           exit 1
         fi
+        echo SOURCE_BRANCH $SOURCE_BRANCH
 
         DESTINATION_BRANCH="${${{ inputs.destination_branch }}:-"main"}"
+        echo DESTINATION_BRANCH $DESTINATION_BRANCH
 
         # Github actions no longer auto set the username and GITHUB_TOKEN
         git remote set-url origin "https://$GITHUB_ACTOR:${{ github.token }}@${GITHUB_SERVER_URL#https://}/$GITHUB_REPOSITORY"
