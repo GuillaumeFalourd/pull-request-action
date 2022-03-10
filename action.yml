@@ -16,9 +16,6 @@ inputs:
   pr_body:
     description: Pull request body
     required: false
-  pr_template:
-    description: Pull request template
-    required: false
   pr_reviewer:
     description: Pull request reviewers, comma-separated list (no spaces)
     required: false
@@ -94,49 +91,39 @@ runs:
         # Workaround for `hub` auth error https://github.com/github/hub/issues/2149#issuecomment-513214342
         export GITHUB_USER="$GITHUB_ACTOR"
 
+        COMMAND="gh pr create --base $DESTINATION_BRANCH --head $SOURCE_BRANCH --no-maintainer-edit "
+
         if [[ ! -z "${{ inputs.pr_title }}" ]]; then
-          PR_ARG=--title \"${{ inputs.pr_title }}\"
+          COMMAND="$COMMAND --title \"${{ inputs.pr_title }}\""
         else
-          PR_ARG=--title \"PR automatically generated using Github Actions\"
+          COMMAND="$COMMAND --title \"PR automatically generated using Github Actions\""
         fi
 
-        if [[ ! -z "$PR_ARG" ]]; then
-          PR_ARG="-m \"$PR_ARG\""
-
-          if [[ ! -z "${{ inputs.pr_template }}" ]]; then
-            sed -i 's/`/\\`/g; s/\$/\\\$/g' "${{ inputs.pr_template }}"
-            PR_ARG="$PR_ARG -m \"$(echo -e "$(cat "${{ inputs.pr_template }}")")\""
-          elif [[ ! -z "${{ inputs.pr_body }}" ]]; then
-            PR_ARG="$PR_ARG -m \"${{ inputs.pr_body }}\""
-          fi
+        if [[ ! -z "${{ inputs.pr_body }}" ]]; then
+          COMMAND="$COMMAND -m \"${{ inputs.pr_body }}\""
         fi
 
         if [[ ! -z "${{ inputs.pr_reviewer }}" ]]; then
-          PR_ARG="$PR_ARG --reviewer \"${{ inputs.pr_reviewer }}\""
+          COMMAND="$COMMAND --reviewer \"${{ inputs.pr_reviewer }}\""
         fi
 
         if [[ ! -z "${{ inputs.pr_assignee }}" ]]; then
-          PR_ARG="$PR_ARG --assignee \"${{ inputs.pr_assignee }}\""
+          COMMAND="$COMMAND --assignee \"${{ inputs.pr_assignee }}\""
         fi
 
         if [[ ! -z "${{ inputs.pr_label }}" ]]; then
-          PR_ARG="$PR_ARG --label \"${{ inputs.pr_label }}\""
+          COMMAND="$COMMAND --label \"${{ inputs.pr_label }}\""
         fi
 
         if [[ ! -z "${{ inputs.pr_milestone }}" ]]; then
-          PR_ARG="$PR_ARG --milestone \"${{ inputs.pr_milestone }}\""
+          COMMAND="$COMMAND --milestone \"${{ inputs.pr_milestone }}\""
         fi
 
         if [[ "${{ inputs.pr_draft }}" == "true" ]]; then
-          PR_ARG="$PR_ARG --draft"
+          COMMAND="$COMMAND --draft"
         fi
 
-        COMMAND="gh pr create \
-          --base $DESTINATION_BRANCH \
-          --head $SOURCE_BRANCH \
-          --no-maintainer-edit \
-          $PR_ARG \
-          || true"
+        COMMAND = "$COMMAND || true"
 
         echo "Command that will be executed:"
         echo "$COMMAND"

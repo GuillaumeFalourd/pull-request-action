@@ -27,7 +27,6 @@ Inspired from [https://github.com/repo-sync/pull-request](https://github.com/rep
         destination_branch: "main"                        # If blank, default: main
         pr_title: "Pulling ${{ github.ref }} into main"   # Title of pull request
         pr_body: "An automated PR"                        # Full markdown support, requires pr_title to be set
-        pr_template: ".github/PULL_REQUEST_TEMPLATE.md"   # Path to pull request template, requires pr_title to be set, excludes 
         pr_reviewer: "john, britney"                      # Comma-separated list (no spaces)
         pr_assignee: "john"                               # Comma-separated list (no spaces)
         pr_label: "auto-pr"                               # Comma-separated list (no spaces)
