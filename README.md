@@ -1,25 +1,25 @@
-# <repo_name>
+# Pull Request Action
 
-[![Security Pipeline](https://github.com/GuillaumeFalourd/<repo_name>/actions/workflows/security-pipeline.yml/badge.svg)](https://github.com/GuillaumeFalourd/<repo_name>/actions/workflows/security-pipeline.yml) [![Super Linter](https://github.com/GuillaumeFalourd/<repo_name>/actions/workflows/super-linter.yml/badge.svg)](https://github.com/GuillaumeFalourd/<repo_name>/actions/workflows/super-linter.yml) [![Gitleaks](https://github.com/GuillaumeFalourd/<repo_name>/actions/workflows/gitleaks.yml/badge.svg)](https://github.com/GuillaumeFalourd/<repo_name>/actions/workflows/gitleaks.yml)
+☞ Github Actions to create pull request ⤵️ 
 
-☞ Github repository template to create other personal repositories 🧑‍💻🏗
+_**Note**: This action is supported on **all runners** operating systems (`ubuntu`, `macos`, `windows`)_
 
-## 📚 What is Lorem Ipsum?
+## 📚 Usage
 
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+TODO
 
 ## 🤝 Contributing
 
-☞ If you're interested in contributing to this repository, please follow the [guidelines](https://github.com/GuillaumeFalourd/<repo_name>/blob/main/CONTRIBUTING.md)
+☞ If you're interested in contributing to this repository, please follow the [guidelines](https://github.com/GuillaumeFalourd/pull-request-action/blob/main/CONTRIBUTING.md)
 
 ## 🏅 Licensed
 
-☞ This repository uses the [Apache License 2.0](https://github.com/GuillaumeFalourd/<repo_name>/blob/main/LICENSE)
+☞ This repository uses the [Apache License 2.0](https://github.com/GuillaumeFalourd/pull-request-action/blob/main/LICENSE)
 
 <!-- ### Contribuidores
 
-<a href="https://github.com/GuillaumeFalourd/<repo_name>/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=GuillaumeFalourd/<repo_name>" />
+<a href="https://github.com/GuillaumeFalourd/pull-request-action/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=GuillaumeFalourd/pull-request-action" />
 </a>
 
 (Criado com [contributors-img](https://contrib.rocks)) -->

@@ -1,0 +1,17 @@
+name: Action test on MacOS
+
+on:
+  schedule:
+    - cron: "0 4 * * MON-FRI" # Runs at 04:00 UTC
+  push:
+  workflow_dispatch:
+
+jobs:
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: GuillaumeFalourd/pull-request-action@main
+        with:
+          destination_branch: "main"
+          github_token: ${{ secrets.GITHUB_TOKEN }}

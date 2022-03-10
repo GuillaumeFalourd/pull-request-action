@@ -1,0 +1,156 @@
+name: Pull Request Action
+
+description: Github Actions to create pull request ⤵️ 
+
+inputs:
+  source_branch:
+    description: Branch name to pull from, default is triggered branch
+    required: false
+  destination_branch:
+    description: Branch name to sync to in this repo, default is master
+    required: false
+    default: master
+  pr_title:
+    description: Pull request title
+    required: false
+  pr_body:
+    description: Pull request body
+    required: false
+  pr_template:
+    description: Pull request template
+    required: false
+  pr_reviewer:
+    description: Pull request reviewers, comma-separated list (no spaces)
+    required: false
+  pr_assignee:
+    description: Pull request assignees, comma-separated list (no spaces)
+    required: false
+  pr_label:
+    description: Pull request labels, comma-separated list (no spaces)
+    required: false
+  pr_milestone:
+    description: Pull request milestone
+    required: false
+  pr_draft:
+    description: Draft pull request
+    required: false
+  pr_allow_empty:
+    description: Create PR even if no changes
+    required: false
+  github_token:
+    description: GitHub token secret
+    required: true
+    default: ${{ github.token }}
+
+outputs:
+  pr_url:
+    description: 'Pull request URL'
+  pr_number:
+    description: 'Pull request number'
+  has_changed_files:
+    description: 'Boolean string indicating whether any file has been changed'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Create Pull Request ⤵️ 
+    - run: |
+        set -e
+        set -o pipefail
+
+        if [[ ! -z "${{ inputs.source_branch }}" ]]; then
+          SOURCE_BRANCH="${{ inputs.source_branch }}"
+        elif [[ ! -z "$GITHUB_REF" ]]; then
+          SOURCE_BRANCH=${GITHUB_REF/refs\/heads\//}  # Remove branch prefix
+        else
+          echo "Set the ${{ inputs.source_branch }} environment variable or trigger from a branch."
+          exit 1
+        fi
+
+        DESTINATION_BRANCH="${${{ inputs.destination_branch }}:-"master"}"
+
+        # Github actions no longer auto set the username and GITHUB_TOKEN
+        git remote set-url origin "https://$GITHUB_ACTOR:${{ github.token }}@${GITHUB_SERVER_URL#https://}/$GITHUB_REPOSITORY"
+
+        # Pull all branches references down locally so subsequent commands can see them
+        git fetch origin '+refs/heads/*:refs/heads/*' --update-head-ok
+
+        # Print out all branches
+        git --no-pager branch -a -vv
+
+        if [ "$(git rev-parse --revs-only "$SOURCE_BRANCH")" = "$(git rev-parse --revs-only "$DESTINATION_BRANCH")" ]; then
+          echo "Source and destination branches are the same."
+          exit 0
+        fi
+
+        # Do not proceed if there are no file differences, this avoids PRs with just a merge commit and no content
+        LINES_CHANGED=$(git diff --name-only "$DESTINATION_BRANCH" "$SOURCE_BRANCH" -- | wc -l | awk '{print $1}')
+        if [[ "$LINES_CHANGED" = "0" ]] && [[ ! "${{ inputs.pr_allow_empty }}" ==  "true" ]]; then
+          echo "No file changes detected between source and destination branches."
+          exit 0
+        fi
+
+
+        # Workaround for `hub` auth error https://github.com/github/hub/issues/2149#issuecomment-513214342
+        export GITHUB_USER="$GITHUB_ACTOR"
+
+        PR_ARG="${{ inputs.pr_title }}"
+        if [[ ! -z "$PR_ARG" ]]; then
+          PR_ARG="-m \"$PR_ARG\""
+
+          if [[ ! -z "${{ inputs.pr_template }}" ]]; then
+            sed -i 's/`/\\`/g; s/\$/\\\$/g' "${{ inputs.pr_template }}"
+            PR_ARG="$PR_ARG -m \"$(echo -e "$(cat "${{ inputs.pr_template }}")")\""
+          elif [[ ! -z "${{ inputs.pr_body }}" ]]; then
+            PR_ARG="$PR_ARG -m \"${{ inputs.pr_body }}\""
+          fi
+        fi
+
+        if [[ ! -z "${{ inputs.pr_reviewer }}" ]]; then
+          PR_ARG="$PR_ARG -r \"${{ inputs.pr_reviewer }}\""
+        fi
+
+        if [[ ! -z "${{ inputs.pr_assignee }}" ]]; then
+          PR_ARG="$PR_ARG -a \"${{ inputs.pr_assignee }}\""
+        fi
+
+        if [[ ! -z "${{ inputs.pr_label }}" ]]; then
+          PR_ARG="$PR_ARG -l \"${{ inputs.pr_label }}\""
+        fi
+
+        if [[ ! -z "${{ inputs.pr_milestone }}" ]]; then
+          PR_ARG="$PR_ARG -M \"${{ inputs.pr_milestone }}\""
+        fi
+
+        if [[ "${{ inputs.pr_draft }}" ==  "true" ]]; then
+          PR_ARG="$PR_ARG -d"
+        fi
+
+        COMMAND="hub pull-request \
+          -b $DESTINATION_BRANCH \
+          -h $SOURCE_BRANCH \
+          --no-edit \
+          $PR_ARG \
+          || true"
+
+        echo "$COMMAND"
+
+        PR_URL=$(sh -c "$COMMAND")
+        if [[ "$?" != "0" ]]; then
+          exit 1
+        fi
+
+        echo ${PR_URL}
+        echo "::set-output name=pr_url::${PR_URL}"
+        echo "::set-output name=pr_number::${PR_URL##*/}"
+        if [[ "$LINES_CHANGED" = "0" ]]; then
+          echo "::set-output name=has_changed_files::false"
+        else
+          echo "::set-output name=has_changed_files::true"
+        fi
+    shell: bash
+
+
+branding:
+  icon: 'git-pull-request'
+  color: 'black'
