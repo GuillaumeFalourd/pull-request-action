@@ -94,7 +94,12 @@ runs:
         # Workaround for `hub` auth error https://github.com/github/hub/issues/2149#issuecomment-513214342
         export GITHUB_USER="$GITHUB_ACTOR"
 
-        PR_ARG="${{ inputs.pr_title }}"
+        if [[ ! -z "${{ inputs.pr_title }}" ]]; then
+          PR_ARG="${{ inputs.pr_title }}"
+        else
+          PR_ARG="PR automatically generated using Github Actions"
+        fi
+
         if [[ ! -z "$PR_ARG" ]]; then
           PR_ARG="-m \"$PR_ARG\""
 
