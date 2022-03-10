@@ -34,6 +34,9 @@ inputs:
   pr_allow_empty:
     description: Create PR even if no changes
     required: false
+  github_token:
+    description: GitHub token secret
+    required: true
 
 outputs:
   pr_url:
@@ -50,6 +53,14 @@ runs:
       run: |
         set -e
         set -o pipefail
+
+        if [[ ! -z "${{ inputs.github_token }}" ]]; then
+          echo token set
+          GITHUB_TOKEN=${{ inputs.github_token }}
+        else
+          echo token NOT set
+          GITHUB_TOKEN=${{ github.token }}
+        fi
 
         if [[ ! -z "${{ inputs.source_branch }}" ]]; then
           SOURCE_BRANCH="${{ inputs.source_branch }}"
