@@ -10,7 +10,7 @@ Inspired from [https://github.com/repo-sync/pull-request](https://github.com/rep
 ### Minimum
 
 ```yaml
-    - uses: GuillaumeFalourd/pull-request-action@main
+    - uses: GuillaumeFalourd/pull-request-action@v1
       with:
         destination_branch: "main"
         github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -20,7 +20,7 @@ Inspired from [https://github.com/repo-sync/pull-request](https://github.com/rep
 
 ```yaml
     - name: pull-request
-      uses: GuillaumeFalourd/pull-request-action@main
+      uses: GuillaumeFalourd/pull-request-action@v1
       uses: repo-sync/pull-request@v2
       with:
         source_branch: ""                                 # If blank, default: triggered branch
