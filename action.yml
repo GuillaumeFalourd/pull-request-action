@@ -96,7 +96,7 @@ runs:
         if [[ ! -z "${{ inputs.pr_title }}" ]]; then
           COMMAND="$COMMAND --title \"${{ inputs.pr_title }}\""
         else
-          COMMAND="$COMMAND --title \"PR automatically generated using Github Actions\""
+          COMMAND="$COMMAND --fill"
         fi
 
         if [[ ! -z "${{ inputs.pr_body }}" ]]; then
