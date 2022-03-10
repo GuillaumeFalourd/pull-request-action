@@ -8,7 +8,8 @@
 
 _**Note**: This action is supported on **all runners** operating systems (`ubuntu`, `macos`, `windows`)_
 
-Inspired from [https://github.com/repo-sync/pull-request](https://github.com/repo-sync/pull-request)
+_Inspired from [https://github.com/repo-sync/pull-request](https://github.com/repo-sync/pull-request)_
+
 ## 📚 Usage
 
 This action uses Github CLI to create a Pull Request. No
