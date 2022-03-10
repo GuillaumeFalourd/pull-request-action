@@ -2,7 +2,7 @@
 
 [![Action test on Ubuntu](https://github.com/GuillaumeFalourd/pull-request-action/actions/workflows/ubuntu_action_test.yml/badge.svg)](https://github.com/GuillaumeFalourd/pull-request-action/actions/workflows/ubuntu_action_test.yml) [![Action test on MacOS](https://github.com/GuillaumeFalourd/pull-request-action/actions/workflows/macos_action_test.yml/badge.svg)](https://github.com/GuillaumeFalourd/pull-request-action/actions/workflows/macos_action_test.yml) [![Action test on Windows](https://github.com/GuillaumeFalourd/pull-request-action/actions/workflows/windows_action_test.yml/badge.svg)](https://github.com/GuillaumeFalourd/pull-request-action/actions/workflows/windows_action_test.yml)
 
-![](https://user-images.githubusercontent.com/22433243/157691195-4a04e61a-279e-4da7-aa1a-2cec91b6ac3e.png)
+![](https://user-images.githubusercontent.com/22433243/157692326-2e75f43d-e563-4fa9-8947-67c06e4e469f.png)
 
 ☞ Github Actions to create pull request using Github CLI ⤵️ 
 
