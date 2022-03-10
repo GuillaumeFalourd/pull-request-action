@@ -60,16 +60,25 @@ runs:
         set -o pipefail
 
         if [[ ! -z "${{ inputs.source_branch }}" ]]; then
+          echo one
           SOURCE_BRANCH="${{ inputs.source_branch }}"
         elif [[ ! -z "$GITHUB_REF" ]]; then
+          echo two
           SOURCE_BRANCH=${GITHUB_REF/refs\/heads\//}  # Remove branch prefix
         else
+          echo three
           echo "Set the ${{ inputs.source_branch }} environment variable or trigger from a branch."
           exit 1
         fi
         echo SOURCE_BRANCH $SOURCE_BRANCH
 
-        DESTINATION_BRANCH="${${{ inputs.destination_branch }}:-"main"}"
+        if [[ ! -z "${{ inputs.destination_branch }}" ]]; then
+          echo four
+          DESTINATION_BRANCH="${{ inputs.destination_branch }}"
+        else
+          echo five
+          DESTINATION_BRANCH="main"
+        fi
         echo DESTINATION_BRANCH $DESTINATION_BRANCH
 
         # Github actions no longer auto set the username and GITHUB_TOKEN
