@@ -8,13 +8,32 @@ on:
   workflow_dispatch:
 
 jobs:
-  ubuntu:
+  ubuntu-min:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: GuillaumeFalourd/pull-request-action@main
         with:
           source_branch: "main"
-          destination_branch: "test"
+          destination_branch: "test-ubuntu-min"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  ubuntu-max:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: GuillaumeFalourd/pull-request-action@main
+        with:
+          source_branch: "main"
+          destination_branch: "test-ubuntu-max"
+          pr_title: "Pulling ${{ github.ref }} into main"
+          pr_body: "An automated PR"
+          pr_reviewer: "GuillaumeFalourd"
+          pr_assignee: "GuillaumeFalourd"
+          pr_label: "test"
+          pr_milestone: "Milestone 1"
+          pr_draft: true
+          pr_allow_empty: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
