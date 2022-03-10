@@ -13,5 +13,5 @@ jobs:
       - uses: actions/checkout@v2
       - uses: GuillaumeFalourd/pull-request-action@main
         with:
-          destination_branch: "main"
+          destination_branch: "test"
           github_token: ${{ secrets.GITHUB_TOKEN }}
