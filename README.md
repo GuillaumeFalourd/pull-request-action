@@ -12,10 +12,11 @@ _Inspired from [https://github.com/repo-sync/pull-request](https://github.com/re
 
 ## 📚 Usage
 
-This action uses Github CLI to create a Pull Request. No
-[According to the documentation](https://docs.github.com/en/actions/using-workflows/using-github-cli-in-workflows), to authenticate on the workflow using Github CLI, you need to set the GITHUB_TOKEN context variable as environment variable.
+- This action uses [Github CLI](https://cli.github.com/) to create a Pull Request.
 
-Note that if you need specific permissions, you can also set a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) instead.
+- [According to the documentation](https://docs.github.com/en/actions/using-workflows/using-github-cli-in-workflows), to authenticate on the workflow using Github CLI, you need to set the GITHUB_TOKEN context variable as environment variable.
+
+- Note that if you need specific permissions, you can also set a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) instead.
 
 ### Minimum configurations
 
