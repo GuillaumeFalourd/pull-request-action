@@ -54,7 +54,7 @@ runs:
   using: "composite"
   steps:
     - name: Create Pull Request ⤵️ 
-    - run: |
+      run: |
         set -e
         set -o pipefail
 
@@ -89,7 +89,6 @@ runs:
           echo "No file changes detected between source and destination branches."
           exit 0
         fi
-
 
         # Workaround for `hub` auth error https://github.com/github/hub/issues/2149#issuecomment-513214342
         export GITHUB_USER="$GITHUB_ACTOR"
