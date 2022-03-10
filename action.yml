@@ -1,6 +1,6 @@
-name: Pull Request Action
+name: Pull Request Action (Github CLI)
 
-description: Github Actions to create pull request (all os supported) ⤵️ 
+description: Github Actions to create pull request (all os supported) using Github CLI ⤵️ 
 
 inputs:
   source_branch:
