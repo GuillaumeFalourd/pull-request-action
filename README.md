@@ -1,6 +1,10 @@
 # Pull Request Action
 
-☞ Github Actions to create pull request ⤵️ 
+[![Action test on Ubuntu](https://github.com/GuillaumeFalourd/pull-request-action/actions/workflows/ubuntu_action_test.yml/badge.svg)](https://github.com/GuillaumeFalourd/pull-request-action/actions/workflows/ubuntu_action_test.yml) [![Action test on MacOS](https://github.com/GuillaumeFalourd/pull-request-action/actions/workflows/macos_action_test.yml/badge.svg)](https://github.com/GuillaumeFalourd/pull-request-action/actions/workflows/macos_action_test.yml) [![Action test on Windows](https://github.com/GuillaumeFalourd/pull-request-action/actions/workflows/windows_action_test.yml/badge.svg)](https://github.com/GuillaumeFalourd/pull-request-action/actions/workflows/windows_action_test.yml)
+
+![](https://user-images.githubusercontent.com/22433243/157691195-4a04e61a-279e-4da7-aa1a-2cec91b6ac3e.png)
+
+☞ Github Actions to create pull request using Github CLI ⤵️ 
 
 _**Note**: This action is supported on **all runners** operating systems (`ubuntu`, `macos`, `windows`)_
 
@@ -12,7 +16,7 @@ This action uses Github CLI to create a Pull Request. No
 
 Note that if you need specific permissions, you can also set a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) instead.
 
-### Minimum
+### Minimum configurations
 
 ```yaml
     - uses: GuillaumeFalourd/pull-request-action@v1
@@ -22,11 +26,10 @@ Note that if you need specific permissions, you can also set a [Personal Access 
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-### Maximum
+### Full configurations
 
 ```yaml
-    - name: pull-request
-      uses: GuillaumeFalourd/pull-request-action@v1
+    - uses: GuillaumeFalourd/pull-request-action@v1
       uses: repo-sync/pull-request@v2
       with:
         source_branch: "main"                             # If blank, default: triggered branch
