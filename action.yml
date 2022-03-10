@@ -95,9 +95,9 @@ runs:
         export GITHUB_USER="$GITHUB_ACTOR"
 
         if [[ ! -z "${{ inputs.pr_title }}" ]]; then
-          PR_ARG="${{ inputs.pr_title }}"
+          PR_ARG=--title "${{ inputs.pr_title }}"
         else
-          PR_ARG=" --title \"PR automatically generated using Github Actions\""
+          PR_ARG=--title "PR automatically generated using Github Actions"
         fi
 
         if [[ ! -z "$PR_ARG" ]]; then
