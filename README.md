@@ -10,6 +10,16 @@ _**Note**: This action is supported on **all runners** operating systems (`ubunt
 
 _Inspired from [https://github.com/repo-sync/pull-request](https://github.com/repo-sync/pull-request)_
 
+## 📝 Features
+
+- Create pull requests
+
+- Add reviewers, assignees, labels, or milestones
+
+- Customize pull request title and body
+
+- Fail silently when a pull request already exists
+
 ## 📚 Usage
 
 - This action uses [Github CLI](https://cli.github.com/) to create a Pull Request.
