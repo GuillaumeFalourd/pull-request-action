@@ -42,7 +42,6 @@ _Inspired from [https://github.com/repo-sync/pull-request](https://github.com/re
 
 ```yaml
     - uses: GuillaumeFalourd/pull-request-action@v1
-      uses: repo-sync/pull-request@v2
       with:
         source_branch: "main"                             # If blank, default: triggered branch
         destination_branch: "feature"                     # If blank, default: main
