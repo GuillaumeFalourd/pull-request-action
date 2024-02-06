@@ -65,6 +65,7 @@ runs:
         INPUT_PR_MILESTONE: ${{ inputs.pr_milestone }}
         INPUT_PR_DRAFT: ${{ inputs.pr_draft }}
         INPUT_PR_ALLOW_EMPTY: ${{ inputs.pr_allow_empty }}
+        GH_TOKEN: ${{ github.token }}
       id: pr-creation
       run: |
         set -e
@@ -97,13 +98,13 @@ runs:
         echo_success() { printf "%b\n" "${color_green}✔ $(printf "%s\n" "$*")${reset_color}"; }
         echo_fail() { printf "%b\n" "${color_red}✖ $(printf "%s\n" "$*")${reset_color}"; }
         enable_debug() {
-          if [[ "${RUNNER_DEBUG}" == "true" ]]; then
+          if [[ "${RUNNER_DEBUG}" == "1" ]]; then
             echo_info "Enabling debug mode."
             set -x
           fi
         }
         disable_debug() {
-          if [[ "${RUNNER_DEBUG}" == "true" ]]; then
+          if [[ "${RUNNER_DEBUG}" != "1" ]]; then
             set +x
           fi
         }
