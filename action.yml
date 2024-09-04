@@ -174,25 +174,25 @@ runs:
 
         declare -a COMMAND
         COMMAND+=(gh pr create --base $DESTINATION_BRANCH --head $SOURCE_BRANCH --no-maintainer-edit)
-        if [[ ! -z "${INPUT_PR_TITLE}" ]]; then
-          COMMAND+=(--title "${INPUT_PR_TITLE}")
+        if [[ ! -z '${INPUT_PR_TITLE}' ]]; then
+          COMMAND+=(--title '${INPUT_PR_TITLE}')
         else
           COMMAND+=(--fill)
         fi
-        if [[ ! -z "${INPUT_PR_BODY}" ]]; then
-          COMMAND+=(--body "${INPUT_PR_BODY}")
+        if [[ ! -z '${INPUT_PR_BODY}' ]]; then
+          COMMAND+=(--body '${INPUT_PR_BODY}')
         fi
-        if [[ ! -z "${INPUT_PR_REVIEWER}" ]]; then
-          COMMAND+=(--reviewer "${INPUT_PR_REVIEWER}")
+        if [[ ! -z '${INPUT_PR_REVIEWER}' ]]; then
+          COMMAND+=(--reviewer '${INPUT_PR_REVIEWER}')
         fi
-        if [[ ! -z "${INPUT_PR_ASSIGNEE}" ]]; then
-          COMMAND+=(--assignee "${INPUT_PR_ASSIGNEE}")
+        if [[ ! -z '${INPUT_PR_ASSIGNEE}' ]]; then
+          COMMAND+=(--assignee '${INPUT_PR_ASSIGNEE}')
         fi
-        if [[ ! -z "${INPUT_PR_LABEL}" ]]; then
-          COMMAND+=(--label "${INPUT_PR_LABEL}")
+        if [[ ! -z '${INPUT_PR_LABEL}' ]]; then
+          COMMAND+=(--label '${INPUT_PR_LABEL}')
         fi
-        if [[ ! -z "${INPUT_PR_MILESTONE}" ]]; then
-          COMMAND+=(--milestone "${INPUT_PR_MILESTONE}")
+        if [[ ! -z '${INPUT_PR_MILESTONE}' ]]; then
+          COMMAND+=(--milestone '${INPUT_PR_MILESTONE}')
         fi
         if [[ "${INPUT_PR_DRAFT}" == "true" ]]; then
           COMMAND+=(--draft)
